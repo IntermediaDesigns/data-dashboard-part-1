@@ -2,7 +2,7 @@
 
 Submitted by: **Lynjai Jimenez**
 
-This web app: **This powerful tool allows you to explore and discover a wealth of information about your favorite Marvel characters.**
+This web app: **This powerful tool allows you to explore and discover a wealth of information about your favorite Marvel characters. Used https://developer.marvel.com/ for the API**
 
 Time spent: **X** hours spent in total
 
