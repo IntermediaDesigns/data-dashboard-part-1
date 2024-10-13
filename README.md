@@ -4,7 +4,7 @@ Submitted by: **Lynjai Jimenez**
 
 This web app: **This powerful tool allows you to explore and discover a wealth of information about your favorite Marvel characters. Used https://developer.marvel.com/ for the API**
 
-Time spent: **X** hours spent in total
+Time spent: **3.5** hours spent in total
 
 ## Required Features
 
@@ -12,7 +12,7 @@ The following **required** functionality is completed:
 
 - [ X ] **Data uses the useEffect React hook and async/await syntax**
 - [ X ] **The app dashboard includes at least three summary statistics about the data such as**
-  - [ X ] *image, info, comic list, series list*
+  - [ X ] *name, image, info, comic list, series list*
 - [ X ] **A search bar allows the user to search for an item in the fetched data**
 - [ X ] **Multiple different filters (2+) allow the user to filter items in the database by specified categories**
 
@@ -32,7 +32,7 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-![Dataverse]()
+![Dataverse](/public/dataverse-opt.gif)
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ScreenToGif
