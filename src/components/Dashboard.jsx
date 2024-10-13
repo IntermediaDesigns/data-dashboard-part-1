@@ -126,6 +126,36 @@ const CharacterModal = ({ character, onClose }) => {
   );
 };
 
+const RangeSlider = ({ min, max, value, onChange, label }) => {
+  return (
+    <div className="flex-1">
+      <label className="block mb-1 font-sans font-bold">{label}</label>
+      <div className="flex items-center space-x-2">
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={value[0]}
+          onChange={(e) => onChange([parseInt(e.target.value), value[1]])}
+          className="w-full"
+        />
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={value[1]}
+          onChange={(e) => onChange([value[0], parseInt(e.target.value)])}
+          className="w-full"
+        />
+      </div>
+      <div className="flex justify-between">
+        <span>{value[0]}</span>
+        <span>{value[1]}</span>
+      </div>
+    </div>
+  );
+};
+
 const Dashboard = () => {
   const [characters, setCharacters] = useState([]);
   const [displayedCharacters, setDisplayedCharacters] = useState([]);
@@ -133,13 +163,15 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLetter, setSelectedLetter] = useState("");
-  const [filters, setFilters] = useState({
-    comics: "",
-    series: "",
-  });
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+
+  // Updated filters state
+  const [filters, setFilters] = useState({
+    comics: [0, 100],
+    series: [0, 100],
+  });
 
   const PUBLIC_KEY = import.meta.env.VITE_MARVEL_PUBLIC_KEY;
   const PRIVATE_KEY = import.meta.env.VITE_MARVEL_PRIVATE_KEY;
@@ -193,14 +225,15 @@ const Dashboard = () => {
     filterAndDisplayCharacters();
   }, [characters, searchTerm, filters]);
 
+  // Updated filterAndDisplayCharacters function
   const filterAndDisplayCharacters = () => {
     const filtered = characters.filter((character) => {
       return (
         character.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (filters.comics === "" ||
-          character.comics.available > parseInt(filters.comics)) &&
-        (filters.series === "" ||
-          character.series.available > parseInt(filters.series))
+        character.comics.available >= filters.comics[0] &&
+        character.comics.available <= filters.comics[1] &&
+        character.series.available >= filters.series[0] &&
+        character.series.available <= filters.series[1]
       );
     });
     setDisplayedCharacters(filtered.slice(0, DISPLAY_LIMIT));
@@ -276,28 +309,20 @@ const Dashboard = () => {
 
         {/* Filters */}
         <div className="flex space-x-4 mb-6">
-          <label className="flex-1 ">
-            <span className="block mb-1 font-sans font-bold">Min Comics:</span>
-            <input
-              type="number"
-              value={filters.comics}
-              onChange={(e) =>
-                setFilters({ ...filters, comics: e.target.value })
-              }
-              className="w-full p-2 border-4 text-gray-800 border-black"
-            />
-          </label>
-          <label className="flex-1">
-            <span className="block mb-1 font-sans font-bold">Min Series:</span>
-            <input
-              type="number"
-              value={filters.series}
-              onChange={(e) =>
-                setFilters({ ...filters, series: e.target.value })
-              }
-              className="w-full p-2 border-4 border-black "
-            />
-          </label>
+          <RangeSlider
+            min={0}
+            max={100}
+            value={filters.comics}
+            onChange={(value) => setFilters({ ...filters, comics: value })}
+            label="Comics Range"
+          />
+          <RangeSlider
+            min={0}
+            max={100}
+            value={filters.series}
+            onChange={(value) => setFilters({ ...filters, series: value })}
+            label="Series Range"
+          />
         </div>
 
         {/* Summary statistics */}
