@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import md5 from "md5";
 
@@ -81,7 +83,7 @@ const App = () => {
       }
 
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError("Error fetching data");
       setLoading(false);
     }
@@ -139,10 +141,18 @@ const App = () => {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="font-bangers text-7xl text-shadow-xl mb-8 text-center font-bold text-red-600 tracking-wide">
-        MARVEL CHARACTERS DASHBOARD
-      </h1>
+    <div className="container mx-auto px-2 py-8">
+      <div className="flex items-center justify-between">
+        <img src="/dataverselogo.png" alt="logo" className="w-40" />
+        <h1 className="font-bangers text-9xl text-shadow-xl text-center font-bold text-red-600 tracking-wide">
+          DATAVERSE
+        </h1>
+        <div></div>
+        <div></div>
+      </div>
+      <h2 className="font-medium text-3xl text-shadow-xl mb-8 text-center text-black">
+        A Marvel Comic Database
+      </h2>
 
       <LetterSelector
         selectedLetter={selectedLetter}
