@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,5 +19,5 @@ body {
 
 @font-face {
   font-family: 'Bangers';
-  src: url('../public/font/Bangers.ttf') format('truetype');
+  src: url('/font/Bangers.ttf') format('truetype');
 }
